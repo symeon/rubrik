@@ -1,0 +1,58 @@
+/* HTML elements */
+body {background-color: #eee; color: #000; font-family: Verdana; font-size: 12px; padding: 10px;}
+footer {
+	margin-top: 2px;
+	width: auto;
+	padding: 10px 10px 0;
+	background-color: #ccc;
+	border: 2px solid #e5e5e5;
+	-webkit-border-radius: 8px;
+	   -moz-border-radius: 8px;
+	        border-radius: 8px;
+}
+footer div {
+	margin: 0 0 10px;
+}
+footer span {
+	margin: 0 10px;
+}
+form fieldset.rubrik {
+    border: 1px groove #ddd !important;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+form legend.rubrik {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+}
+h1 {color: #000; font-size: 24px; text-align: center; margin-bottom: 24px;}
+h1.modal-title {font-size: 20px; margin-bottom: 15px;}
+h2 {color: #000; font-size: 18px; text-align: center; margin-top: 25px;}
+h3 {color: #000; font-size: 14px; margin: 20px 0 0;}
+h3.first {margin-top: 0;}
+h4 {color: #000; font-size: 10px; text-align: center;}
+label {margin: 0 10px 0 0;}
+table.table-nonfluid {margin: 10px auto 0; width: auto !important;}
+
+/* Classes */
+.bg-danger, .bg-info, .bg-success {
+	margin-bottom: 20px; 
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    padding: 4px; 
+    text-align: center; 
+    font-size: 14px;
+}
+
+/* IDs */
+#header {margin: 0; padding: 0; height: 40px; border-bottom: 2px solid #e5e5e5; }
+#header #navbar {margin: 0; height: 20px; padding-top: 18px; text-align: center; font-size: 14px;}
+#header #navbar a {margin: 0 10px;}
