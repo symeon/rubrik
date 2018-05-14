@@ -17,6 +17,7 @@ $penalties = array(
 // Form was submitted
 $student_name = '';
 $student_id = '';
+$comments = '';
 $msg = array();
 $bg_indicators = false;
 if (isset($_POST['student_name'])) {
@@ -80,10 +81,16 @@ if (isset($_POST['student_name'])) {
 			$sql->execute();
 			
 			// Return to clean Rubrik page with success  message
+			if ($grade == $total) {
+			    $msg = 'Grade ' . $grade . ' successfully submitted for ' . $student_name;
+			}
+			else {
+			    $msg = 'Grade ' . $grade . ' (' . $total . '-' . $penalty . '%) successfully submitted for ' . $student_name;
+			}
 			$args = array(
 				'filename=' . $filename,
 				'msg[type]=success',
-				'msg[text]=Grade ' . $grade . ' successfully submitted for ' . $student_name,
+			    'msg[text]=' . $msg,
 			);
 			$args = implode('&', $args);
 			header("Location: " . basename($_SERVER['PHP_SELF']) . "?" . $args, true);
@@ -160,8 +167,8 @@ foreach ($settings as $setting_title => $setting_section) {
 	    			<label for="<?php echo $variable; ?>" id="<?php echo $variable; ?>" class="col-sm-4 control-label <?php echo $bg_class; ?>"><span data-tt="tooltip" data-placement="top" title="<?php echo $parameters['notes']; ?>"><?php echo $parameter_value; ?></span></label>
 <?php 
 			}
-			elseif (substr($parameter_name, 0, -1) == 'text') {
-				$index = substr($parameter_name, -1);
+			elseif (substr($parameter_name, 0, 4) == 'text') {
+				$index = substr($parameter_name, 4);
 				$checked = '';
 				if (isset($_POST[$variable]) && $_POST[$variable] == $parameters['value'.$index]) {
 					$checked = ' checked';
