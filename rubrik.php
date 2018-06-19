@@ -122,6 +122,10 @@ $title = str_replace('_', ' ', $module) . ' Rubrik';
 require_once 'include/header.php';
 ?>
 
+        <div id="debug_link">
+        	Running total:<br>
+        	<span id="running_total">0</span>
+        </div>
 
 		<h1><?php echo str_replace('_', ' ', $module); ?> Rubrik</h1>
 		

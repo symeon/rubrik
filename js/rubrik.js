@@ -14,4 +14,16 @@ $(document).ready(function(){
 	    $('[data-tt="tooltip"]').tooltip()
 	})
 	
+/*
+ * ============================================================================
+ * Populate the running total box
+ * ============================================================================
+ */
+	$('.container').on('change', 'input[type=radio]', function() {
+		var running_total = 0;
+		$("input[type=radio]:checked").each(function() {
+			running_total += parseFloat($(this).attr('value'));
+		});
+		$('#running_total').html(running_total);
+	});
 });
