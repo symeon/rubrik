@@ -44,19 +44,45 @@ if (isset($_POST['module']) && $_POST['module'] != '') {
 
 		$result = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
-		// Positive result: display as JSON
+		// Positive result: display as JSON, etc.
 		if (count($result) > 0) {
-			$json = print_r(json_encode($result, JSON_PRETTY_PRINT), 1);
+			$rubrik = parse_ini_file('rubriks/' . $_POST['module'] . '.ini', false);
+			$result_fields_ignored = [
+				"id",
+				"name",
+				"total",
+				"penalty",
+				"grade",
+				"comments"
+			];
+			// Find and add the max for each section
+			foreach ($result[0] as $lab => $res) {
+				if (in_array($lab, $result_fields_ignored)) {
+					continue;
+				}
+				$tmp_array = [];
+				foreach ($rubrik[$lab] as $tmp_lab => $tmp_val) {
+					if (substr($tmp_lab, 0, 5) == 'value') {
+						$tmp_array[] = $tmp_val;
+					}
+				}
+				$tmp_max = max($tmp_array);
+				$result[0][$lab] = round($res, 2) . ' / ' . $tmp_max;
+			}
+			
+			// Display results in 2 formats
+			$json_result = print_r(json_encode($result, JSON_PRETTY_PRINT), 1);
+			$formatted_result = '<pre>' . print_r($result, 1) . '</pre>';
 	        $msg['type'] = 'success';
-	        $msg['text'] = '<strong>Results for ' . $credentials . ' retrieved: </strong><br>' . $json;
+	        $msg['text'] = '<strong>Results for ' . $credentials . ' retrieved: </strong><br>' . $json_result . $formatted_result;
 		}
 		// No results
 		else {
 	        $msg['type'] = 'danger';
 	        $msg['text'] = 'No results for ' . $credentials . ' found.';
 		}
+#		print '<pre>';print_r($rubrik);print '</pre>';
 		
-#		print '<pre>';print_r($result);print '</pre>';
 	}
 	// Student information missing, return to form
 	else {

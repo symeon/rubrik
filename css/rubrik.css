@@ -39,6 +39,7 @@ h3 {color: #000; font-size: 14px; margin: 20px 0 0;}
 h3.first {margin-top: 0;}
 h4 {color: #000; font-size: 10px; text-align: center;}
 label {margin: 0 10px 0 0;}
+pre {display: inline-block; clear: both; margin-left: auto; margin-right: auto;}
 table.table-nonfluid {margin: 10px auto 0; width: auto !important;}
 
 /* Classes */
