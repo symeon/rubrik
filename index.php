@@ -3,6 +3,17 @@
   TODO:
   Different colours for different subsections
   Datasets 1-2 side by side?
+*/
+ 
+/* MLAPHP #1: Calling Autoloader */
+require_once __DIR__ . '/classes/Autoloader.php';
+new Autoloader();
+
+/* MLAPHP #1: Dummy Object calls
+$dummy = new Dummy1;
+$dummy->output();
+$dummy = new Dummies\Dummy2;
+$dummy->output();
  */
 
 $student_name = '';
@@ -15,8 +26,8 @@ if (isset($_POST['module']) && $_POST['module'] != '') {
 	
 	// Student name and ID are fine, proceed
 	if ($student_name != '' || $student_id != '') {
-	    $settings = parse_ini_file('include/settings.ini');
-	    $pdo = new PDO($settings['db_type'] . ':host=' . $settings['db_host'] . ';dbname=' . $settings['db_name'] . ';charset=' . $settings['db_charset'], $settings['db_username'], $settings['db_password']);
+		$settings = new Settings(__DIR__ . '/include/settings.ini');
+	    $pdo = new PDO($settings->get('db_type') . ':host=' . $settings->get('db_host') . ';dbname=' . $settings->get('db_name') . ';charset=' . $settings->get('db_charset'), $settings->get('db_username'), $settings->get('db_password'));
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
 		$where = array();

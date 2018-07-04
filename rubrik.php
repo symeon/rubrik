@@ -1,8 +1,12 @@
 <?php
 
+/* MLAPHP #1: Calling Autoloader */
+require_once __DIR__ . '/classes/Autoloader.php';
+new Autoloader();
+
 $filename = $_GET['filename'];
 $module = substr($filename, 0, -4);
-$settings = parse_ini_file('rubriks/' . $filename, true);
+$rubrik = new Settings(__DIR__ . '/rubriks/' . $filename, true);
 $penalties = array(
     'None' => 0,
     '1 week (10%)' => 10,
@@ -21,8 +25,8 @@ $comments = '';
 $msg = array();
 $bg_indicators = false;
 if (isset($_POST['student_name'])) {
-    $student_name = $_POST['student_name'];
-    $student_id = $_POST['student_id'];
+    $student_name = trim($_POST['student_name']);
+    $student_id = trim($_POST['student_id']);
     $penalty = $_POST['penalty'];
     $comments = $_POST['comments'];
 	
@@ -36,8 +40,8 @@ if (isset($_POST['student_name'])) {
 		$mysql_values = '';
 		$total = 0;
 		$grade = 0;
-		foreach ($settings as $setting_title => $setting_section) {
-			foreach ($setting_section as $variable => $parameters) {
+		foreach ($rubrik->get() as $rubrik_title => $rubrik_section) {
+			foreach ($rubrik_section as $variable => $parameters) {
 				$mysql_table .= ', ' . $variable.' DECIMAL(4,2) NOT NULL';
 				$mysql_names .= ', `' . $variable.'`';
 				if (!isset($_POST[$variable])) {
@@ -53,9 +57,9 @@ if (isset($_POST['student_name'])) {
 		if (count($missing_variables) == 0) {
 
 		    $grade = round($total - ($penalty * $total / 100), 2);
-		    
-		    $settings = parse_ini_file('include/settings.ini');
-		    $pdo = new PDO($settings['db_type'] . ':host=' . $settings['db_host'] . ';dbname=' . $settings['db_name'] . ';charset=' . $settings['db_charset'], $settings['db_username'], $settings['db_password']);
+		    			
+			$settings = new Settings(__DIR__ . '/include/settings.ini');
+			$pdo = new PDO($settings->get('db_type') . ':host=' . $settings->get('db_host') . ';dbname=' . $settings->get('db_name') . ';charset=' . $settings->get('db_charset'), $settings->get('db_username'), $settings->get('db_password'));
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			
 			// Create the table if it doesn't exist yet
@@ -150,13 +154,13 @@ if (count($msg)) {
 			</div>
 		
 <?php 
-foreach ($settings as $setting_title => $setting_section) {
+foreach ($rubrik->get() as $rubrik_title => $rubrik_section) {
 ?>
 
 			<fieldset class="rubrik">
-				<legend class="rubrik"><?php echo $setting_title; ?></legend>
+				<legend class="rubrik"><?php echo $rubrik_title; ?></legend>
 <?php
-	foreach ($setting_section as $variable => $parameters) {
+	foreach ($rubrik_section as $variable => $parameters) {
 ?>
 	    		<div class="form-group">
 <?php
