@@ -27,33 +27,9 @@ if (isset($_POST['module']) && $_POST['module'] != '') {
 	// Student name and ID are fine, proceed
 	if ($student_name != '' || $student_id != '') {
 		$settings = new Settings(__DIR__ . '/include/settings.ini');
-	    $pdo = new PDO($settings->get('db_type') . ':host=' . $settings->get('db_host') . ';dbname=' . $settings->get('db_name') . ';charset=' . $settings->get('db_charset'), $settings->get('db_username'), $settings->get('db_password'));
-		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	    $db = new Db($settings);
 		
-		$where = array();
-		$credentials = array();
-		if ($student_name != '') {
-			$where[] = 'name = :name';
-			$credentials[] = 'student ' . $student_name;
-		}
-		if ($student_id != '') {
-			$where[] = 'id = :id';
-			$credentials[] = 'ID ' . $student_id;
-		}
-		$where = implode(' AND ', $where);
-		$credentials = implode(' with ', $credentials);
-		
-		// Insert grades into the table
-		$sql = $pdo->prepare('SELECT * FROM ' . $module . ' WHERE ' . $where);
-		if ($student_name != '') {
-			$sql->bindValue(':name', $student_name);
-		}
-		if ($student_id != '') {
-			$sql->bindValue(':id', $student_id);
-		}
-		$sql->execute();
-
-		$result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+		$result = $db->fetch_record();
 
 		// Positive result: display as JSON, etc.
 		if (count($result) > 0) {
@@ -85,12 +61,12 @@ if (isset($_POST['module']) && $_POST['module'] != '') {
 			$json_result = print_r(json_encode($result, JSON_PRETTY_PRINT), 1);
 			$formatted_result = '<pre>' . print_r($result, 1) . '</pre>';
 	        $msg['type'] = 'success';
-	        $msg['text'] = '<strong>Results for ' . $credentials . ' retrieved: </strong><br>' . $json_result . $formatted_result;
+	        $msg['text'] = '<strong>Results for ' . $db->getCredentials() . ' retrieved: </strong><br>' . $json_result . $formatted_result;
 		}
 		// No results
 		else {
 	        $msg['type'] = 'danger';
-	        $msg['text'] = 'No results for ' . $credentials . ' found.';
+	        $msg['text'] = 'No results for ' . $db->getCredentials() . ' found.';
 		}
 #		print '<pre>';print_r($rubrik);print '</pre>';
 		
