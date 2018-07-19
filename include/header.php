@@ -24,8 +24,7 @@ $rubrik_directory = 'rubriks/';
     <div class="container">
 
     	<div id="header">
-			<div id="navbar">
-				<a href="index.php">Search grade</a>
+			<a href="index.php">Search grade</a><br><br>
 <?php 
 $p1 = opendir($rubrik_directory);
 $i = 0;
@@ -35,10 +34,9 @@ while ($rubrik_filename = readdir($p1)) {
 	$name = substr($rubrik_filename, 0, -4);
 	$tables[] = $name;
 ?>
-				<a href="rubrik.php?filename=<?php echo $rubrik_filename; ?>"><?php echo str_replace('_', ' ', $name); ?></a>
+			<a href="rubrik.php?filename=<?php echo $rubrik_filename; ?>"><?php echo str_replace('_', ' ', $name); ?></a><br>
 <?php
 	}
 }
 ?>
-    		</div>
 		</div>
