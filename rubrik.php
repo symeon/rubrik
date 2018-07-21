@@ -5,6 +5,7 @@ $module = substr($filename, 0, -4);
 $settings = parse_ini_file('rubriks/' . $filename, true);
 $penalties = array(
     'None' => 0,
+    'Other (5%)' => 5,
     '1 week (10%)' => 10,
     '2 weeks (15%)' => 15,
     '3 weeks (20%)' => 20,
