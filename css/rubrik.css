@@ -54,9 +54,9 @@ table.table-nonfluid {margin: 10px auto 0; width: auto !important;}
     font-size: 14px;
 }
 
-.container {margin-left: 300px;}
+.container {margin-left: 260px;}
 
 /* IDs */
-#debug_link {position: fixed; top: 0; left: 300; border: 2px solid #fff; padding: 8px; background-color: #99f; text-align: center;}
+#debug_link {position: fixed; top: 0; left: 260px; border: 2px solid #fff; padding: 8px; background-color: #99f; text-align: center;}
 #debug_link #running_total {font-weight: bold;}
-#header {margin: 0; padding: 20px 10px 0; position: fixed; top: 0; left: 0; height: 100%; width: 299px; background: #eff; border-right: 1px solid #ccc; font-size: 14px;}
+#header {margin: 0; padding: 20px 10px 0; position: fixed; top: 0; left: 0; height: 100%; width: 259px; background: #eff; border-right: 1px solid #ccc; font-size: 11px; line-height: 22px;}
