@@ -5,14 +5,20 @@ $module = substr($filename, 0, -4);
 $settings = parse_ini_file('rubriks/' . $filename, true);
 $penalties = array(
     'None' => 0,
-    'Other (5%)' => 5,
-    '1 week (10%)' => 10,
-    '2 weeks (15%)' => 15,
-    '3 weeks (20%)' => 20,
-    '4 weeks (25%)' => 25,
-    '5 weeks (30%)' => 30,
-    '6 weeks (35%)' => 35,
-    '> 6 weeks (100%)' => 100,
+    '5%' => 5,
+    '10% (1 week late)' => 10,
+    '15% (2 weeks late)' => 15,
+    '20% (3 weeks late)' => 20,
+    '25% (4 weeks late)' => 25,
+    '30% (5 weeks late)' => 30,
+    '35% (6 weeks late)' => 35,
+    '40%' => 40,
+    '50%' => 50,
+    '60%' => 60,
+    '70%' => 70,
+    '80%' => 80,
+    '90%' => 90,
+    '100% (> 6 weeks late )' => 100,
 );
 
 // Form was submitted
@@ -172,6 +178,11 @@ foreach ($settings as $setting_title => $setting_section) {
 	    			<label for="<?php echo $variable; ?>" id="<?php echo $variable; ?>" class="col-sm-4 control-label <?php echo $bg_class; ?>"><span data-tt="tooltip" data-placement="top" title="<?php echo $parameters['notes']; ?>"><?php echo $parameter_value; ?></span></label>
 <?php 
 			}
+			elseif ($parameter_name == 'html') {
+?>
+	    				<?php echo $parameter_value; ?>
+<?php 
+			}
 			elseif (substr($parameter_name, 0, 4) == 'text') {
 				$index = substr($parameter_name, 4);
 				$checked = '';
@@ -202,7 +213,7 @@ foreach ($settings as $setting_title => $setting_section) {
 <?php 
 ?>
 	    	<div class="form-group">
-    			<label for="penalty" class="col-sm-4 control-label">Late submission penalty:</label>
+    			<label for="penalty" class="col-sm-4 control-label">Penalty:</label>
     			<div class="col-sm-5">
     				<select id="penalty" name="penalty" class="form-control">
 <?php
