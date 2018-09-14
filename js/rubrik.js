@@ -23,6 +23,7 @@ $(document).ready(function(){
 		var running_total = 0;
 		$("input[type=radio]:checked").each(function() {
 			running_total += parseFloat($(this).attr('value'));
+            running_total = Math.round(running_total * 100) / 100;
 		});
 		$('#running_total').html(running_total);
 	}
