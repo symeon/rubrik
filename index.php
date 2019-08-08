@@ -1,9 +1,4 @@
 <?php
-/*
-  TODO:
-  Different colours for different subsections
-  Datasets 1-2 side by side?
- */
 
 $student_name = '';
 $student_id = '';
