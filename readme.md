@@ -18,6 +18,7 @@ Working example in https://systasis.com/rubrik
 ### TODO
 
 Loads of possible TODOs so send requests to symeon@systasis.com or fork and work:
+* Script that checks syntax of rubrik file
 * Update, Delete DB entries
 * Colour-coding of different rubrik sections
 * Turn the whole thing into OOP, starting with the DB stuff
