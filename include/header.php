@@ -1,5 +1,8 @@
 <?php
 $rubrik_directory = 'rubriks/';
+if (isset($_GET['dir']) && $_GET['dir'] != '') {
+    $rubrik_directory .= '/' . $_GET['dir'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,12 +27,17 @@ $rubrik_directory = 'rubriks/';
     <div class="container">
 
     	<div id="header">
-			<a href="index.php">Search grade</a><br><br>
+			<a href="index.php">Search Grade</a><br><br>
 <?php 
 $p1 = opendir($rubrik_directory);
 $i = 0;
 $tables = array();
 while ($rubrik_filename = readdir($p1)) {
+	if (is_dir($rubrik_directory.$rubrik_filename) && $rubrik_filename == 'old') {
+?>
+			<a href="rubrik.php?dir=<?php echo $rubrik_filename; ?>">[<?php echo $rubrik_filename; ?>]</a><br>
+<?php
+	}
 	if (!is_dir($rubrik_directory.$rubrik_filename) && substr($rubrik_filename, -3) == 'ini') {
 	$name = substr($rubrik_filename, 0, -4);
 	$tables[] = $name;
