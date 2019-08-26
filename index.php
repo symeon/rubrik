@@ -66,7 +66,7 @@ if (isset($_POST['module']) && $_POST['module'] != '') {
 			}
 			
 			// Display results in 2 formats
-			$json_result = print_r(json_encode($result, JSON_PRETTY_PRINT), 1);
+			$json_result = nl2br(stripslashes(print_r(json_encode($result, JSON_PRETTY_PRINT), 1)));
 			$formatted_result = '<pre>' . print_r($result, 1) . '</pre>';
 	        $msg['type'] = 'success';
 	        $msg['text'] = '<strong>Results for ' . $credentials . ' retrieved: </strong><br>' . $json_result . $formatted_result;
